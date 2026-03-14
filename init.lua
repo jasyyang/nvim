@@ -1,5 +1,6 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+vim.g.profile = vim.env.NVIM_PROFILE
 vim.g.have_nerd_font = true
 vim.o.number = true
 vim.o.mouse = 'a'
@@ -18,7 +19,7 @@ vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.o.inccommand = 'split'
 vim.o.cursorline = true
-vim.o.scrolloff = 10
+vim.o.scrolloff = 25
 vim.o.confirm = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.diagnostic.config {
@@ -91,14 +92,27 @@ require('lazy').setup({
   },
 
   {
+    'sindrets/diffview.nvim',
+    config = function()
+      vim.keymap.set('n', '<leader>tf', function()
+        if next(require('diffview.lib').views) == nil then
+          vim.cmd 'DiffviewOpen'
+        else
+          vim.cmd 'DiffviewClose'
+        end
+      end, { desc = '[T]oggle Dif[f]view' })
+    end,
+  },
+
+  {
     'akinsho/toggleterm.nvim',
     version = '*',
     config = function()
       require('toggleterm').setup {
         direction = 'float',
-        float_ops = {
-          border = 'shadow',
-          winblend = 40,
+        float_opts = {
+          border = 'rounded',
+          winblend = 25,
         },
         shade_terminals = true,
         shading_factor = '50',
@@ -456,15 +470,28 @@ require('lazy').setup({
         position = 'center',
         h1 = 'AlphaHeader',
       }
-      dashboard.section.buttons.val = {
+      local projects = {
+        kensho = {
+          { key = 'p1', name = 'text2sql', path = '/Users/jasonyang/code/zentreefish/projects/text2sql' },
+          { key = 'p2', name = 'kce', path = '/Users/jasonyang/code/zentreefish/klib/pkgs/kensho_code_eval' },
+          { key = 'p3', name = 'aquila', path = '/Users/jasonyang/code/aquila' },
+        },
+        personal = {
+          { key = 'p1', name = 'code', path = '/home/jason/code' },
+          { key = 'p2', name = 'rustbook', path = '/home/jason/code/projects/rustbook' },
+        },
+      }
+      local buttons = {
         button('f', '󰱼  Find file', ':Telescope find_files<CR>'),
         button('r', '  Recent files', ':Telescope oldfiles<CR>'),
         button('g', '󰈬  Live grep', ':Telescope live_grep<CR>'),
         button('c', '  Config', ':cd ~/.config/nvim | Telescope find_files<CR>'),
-        button('p1', '  Directory: code', '<cmd>Neotree dir=/home/jason/code position=current<CR>'),
-        button('p2', '  Directory: rustbook', '<cmd>Neotree dir=/home/jason/code/projects/rustbook position=current<CR>'),
-        button('q', '  Quit', ':qa<CR>'),
       }
+      for _, p in ipairs(projects[vim.g.profile] or {}) do
+        table.insert(buttons, button(p.key, '  ' .. p.name, '<cmd>Neotree dir=' .. p.path .. ' position=current<CR>'))
+      end
+      table.insert(buttons, button('q', '  Quit', ':qa<CR>'))
+      dashboard.section.buttons.val = buttons
       dashboard.section.buttons.opts = {
         position = 'center',
       }
@@ -684,3 +711,5 @@ require('lazy').setup({
     },
   },
 })
+
+if vim.g.profile then pcall(require, 'profiles.' .. vim.g.profile) end
