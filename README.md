@@ -1,4 +1,4 @@
-# dotfiles
+# config
 
 My configuration files.
 
