@@ -1,6 +1,6 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-vim.g.profile = vim.env.NVIM_PROFILE
+vim.g.profile = vim.env.CONFIG_PROFILE
 vim.g.have_nerd_font = true
 vim.o.number = true
 vim.o.mouse = 'a'
