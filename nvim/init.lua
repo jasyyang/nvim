@@ -155,6 +155,31 @@ require('lazy').setup({
     },
     config = function()
       require('telescope').setup {
+        defaults = {
+          file_ignore_patterns = {
+            "node_modules/",
+            ".venv/",
+            "*.js",
+	    ".DS_Store",
+	    "*.log",
+	    "*.pid",
+	    "*.tmp",
+	    "__pycache__/",
+	    "*.pyc",
+	    "*.pyo",
+	    "*.pyd",
+	    ".pytest_cache/",
+	    ".coverage",
+	    "htmlcov/",
+	    "build/",
+	    ".pyright/",
+	    "npm-debug.log*",
+	    ".next/",
+	    ".cache/",
+	    "dist/",
+
+          },
+        },
         extensions = {
           ['ui-select'] = { require('telescope.themes').get_dropdown() },
         },
