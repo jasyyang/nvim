@@ -10,7 +10,12 @@ My configuration files.
 
 ## Profiles
 
-Set `CONFIG_PROFILE=kensho` to enable work-specific configuration.
+Set `CONFIG_PROFILE=kensho` to enable work-specific configuration. I like to set this in my `~/.zshenv` per machine.
+
+```sh
+# ~/.zshenv
+export CONFIG_PROFILE=kensho
+```
 
 ## Install
 
