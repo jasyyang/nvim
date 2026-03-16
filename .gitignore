@@ -2,6 +2,7 @@
 !nvim/
 !ghostty/
 !direnv/
+!shell/
 !starship.toml
 !.gitignore
 !README.md
