@@ -22,7 +22,7 @@ My dotfiles, managed with [chezmoi](https://www.chezmoi.io/).
 
 ```sh
 brew install chezmoi neovim ghostty starship direnv zoxide
-chezmoi init https://github.com/jasyyang/dotfiles.git
+chezmoi init git@github.com:jasyyang/dotfiles.git
 chezmoi apply
 ```
 
