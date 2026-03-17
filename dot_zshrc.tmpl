@@ -1,0 +1,33 @@
+# ============================================================================
+# Shared Configuration
+# ============================================================================
+
+# Completion
+autoload -Uz compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
+# Homebrew completions
+if type brew &>/dev/null; then
+    FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fi
+
+# NVM
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# direnv
+export DIRENV_LOG_FORMAT=
+eval "$(direnv hook zsh)"
+
+# zoxide
+eval "$(zoxide init zsh)"
+
+# Starship prompt
+eval "$(starship init zsh)"
+
+# ============================================================================
+# Profile-Specific Configuration
+# ============================================================================
+
+[[ -f ~/.config/shell/aliases.{{ .profile }}.zsh ]] && source ~/.config/shell/aliases.{{ .profile }}.zsh
+[[ -f ~/.config/shell/aliases.local.zsh ]] && source ~/.config/shell/aliases.local.zsh

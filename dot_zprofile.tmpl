@@ -1,0 +1,18 @@
+# ============================================================================
+# Shared Configuration
+# ============================================================================
+
+# PATH
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/opt/homebrew/sbin:/usr/sbin:/sbin:/opt/X11/bin"
+export PATH="$PATH:/Applications/Xcode.app/Contents/Developer/usr/bin"
+export PATH="$HOME/.local/bin:$PATH"
+
+# NVM
+export NVM_DIR="$HOME/.nvm"
+
+# ============================================================================
+# Profile-Specific Configuration
+# ============================================================================
+
+[[ -f ~/.config/shell/env.{{ .profile }}.zsh ]] && source ~/.config/shell/env.{{ .profile }}.zsh
+[[ -f ~/.zprofile.secrets ]] && source ~/.zprofile.secrets

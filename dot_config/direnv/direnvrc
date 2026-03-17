@@ -1,0 +1,15 @@
+use_venv() {
+  local venv_path=""
+
+  if [[ -d ".venv" ]]; then
+    venv_path=".venv"
+  elif [[ -d "app/.venv" ]]; then
+    venv_path="app/.venv"
+  fi
+
+  if [[ -n "$venv_path" && -f "$venv_path/bin/activate" ]]; then
+    source "$venv_path/bin/activate"
+  else
+    return 1
+  fi
+}

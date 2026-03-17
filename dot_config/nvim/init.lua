@@ -92,6 +92,13 @@ require('lazy').setup({
   },
 
   {
+    'hat0uma/csvview.nvim',
+    config = function()
+      vim.keymap.set('n', '<leader>tc', function() vim.cmd 'CsvViewToggle' end, { desc = '[T]oggle [C]svview' })
+    end,
+  },
+
+  {
     'sindrets/diffview.nvim',
     config = function()
       vim.keymap.set('n', '<leader>tf', function()
@@ -116,6 +123,7 @@ require('lazy').setup({
     version = '*',
     config = function()
       require('toggleterm').setup {
+        shell = '/bin/zsh',
         direction = 'float',
         float_opts = {
           border = 'rounded',

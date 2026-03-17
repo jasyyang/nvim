@@ -1,48 +1,47 @@
-# config
+# dotfiles
 
-My configuration files.
+My dotfiles, managed with [chezmoi](https://www.chezmoi.io/).
 
-- `nvim/` - Neovim config
-- `ghostty/` - Ghostty terminal config
-- `starship.toml` - Starship prompt config
-- `direnv/` - direnv config with helper functions for venv activation
-- `claude/` - Claude Code config (symlinked to `~/.claude/CLAUDE.md`)
-- `shell/` - Shell config (zoxide init and common paths)
+## What's Included
+
+```
+.
+├── dot_claude/                # Claude Code config
+├── dot_config/
+│   ├── direnv/                # direnv config
+│   ├── ghostty/               # Ghostty terminal
+│   ├── git/                   # Global gitignore
+│   ├── nvim/                  # Neovim (kickstart-based)
+│   ├── shell/                 # Profile-specific env & aliases
+│   └── starship.toml          # Starship prompt
+├── dot_zprofile.tmpl          # Login shell (sources env.{profile}.zsh)
+└── dot_zshrc.tmpl             # Interactive shell (sources aliases.{profile}.zsh)
+```
 
 ## Install
 
 ```sh
-brew install neovim
-brew install ghostty
-brew install starship
-brew install direnv
-brew install zoxide
+brew install chezmoi neovim ghostty starship direnv zoxide
+chezmoi init https://github.com/jasyyang/dotfiles.git
+chezmoi apply
 ```
 
-## Setup
+Profile is auto-detected by hostname (`kensho` or `personal`).
 
-Symlinks:
+## Local Config (not tracked)
 
-```sh
-ln -sf ~/.config/claude/CLAUDE.md ~/.claude/CLAUDE.md
-```
+Some files are kept local and not tracked:
 
-Add to `~/.zshenv`:
+- `~/.zprofile.secrets`
+- `~/.config/shell/`
+- `~/.local/bin/`
 
-```sh
-export CONFIG_PROFILE=kensho  # or omit for personal
-```
-
-Add to `~/.zshrc`:
+## Usage
 
 ```sh
-# direnv (suppress logging)
-export DIRENV_LOG_FORMAT=
-eval "$(direnv hook zsh)"
-
-# Zoxide (smart cd)
-[[ -f ~/.config/shell/zoxide.sh ]] && source ~/.config/shell/zoxide.sh
-
-# Starship prompt
-eval "$(starship init zsh)"
+chezmoi add <file>       # Track a new file
+chezmoi edit <file>      # Edit a tracked file
+chezmoi diff             # See pending changes
+chezmoi apply            # Apply changes
+chezmoi update           # Pull and apply latest
 ```

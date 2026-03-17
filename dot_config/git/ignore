@@ -1,0 +1,6 @@
+# direnv
+.envrc
+.envrc.local
+
+# Claude Code
+**/.claude/settings.local.json
